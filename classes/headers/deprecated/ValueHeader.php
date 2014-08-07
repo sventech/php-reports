@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class ValueHeader extends HeaderBase {
+
 	static $validation = array(
 		'name'=>array(
 			'required'=>true,

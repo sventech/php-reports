@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 class CautionHeader extends HeaderBase {
 	static $validation = array(
 		'value'=>array(

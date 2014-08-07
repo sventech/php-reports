@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class linkFilter extends FilterBase {	
+
 	public static function filter($value, $options = array(), &$report, &$row) {
 		if(!$value->getValue()) return $value;
 		

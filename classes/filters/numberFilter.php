@@ -6,7 +6,10 @@
  * Time: 15:37
  * To change this template use File | Settings | File Templates.
  */
+namespace JDorn;
+
 class numberFilter extends FilterBase {
+
     public static function filter($value, $options = array(), &$report, &$row) {
         $decimals = $options['decimals'] ? $options['decimals'] : 0;
         $dec_sepr = $options['decimal_sep'] ? $options['decimal_sep'] : ',';

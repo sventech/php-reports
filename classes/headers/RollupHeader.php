@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class RollupHeader extends HeaderBase {
+
 	static $validation = array(
 		'columns'=>array(
 			'required'=>true,

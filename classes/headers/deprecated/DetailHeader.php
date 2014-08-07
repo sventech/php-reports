@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class DetailHeader extends HeaderBase {
+
 	static $validation = array(
 		'report'=>array(
 			'required'=>true,

@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class TableReportFormat extends ReportFormatBase {
+
 	public static function display(&$report, &$request) {
 		
 		$report->options['inline_email'] = true;

@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class OptionsHeader extends HeaderBase {
+
 	static $validation = array(
 		'limit'=>array(
 			'type'=>'number',

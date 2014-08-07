@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class JsonReportFormat extends ReportFormatBase {
+
 	public static function display(&$report, &$request) {		
 		header("Content-type: application/json");
 		header("Pragma: no-cache");

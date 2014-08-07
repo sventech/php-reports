@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 class CacheHeader extends OptionsHeader {	
 	public static function init($params, &$report) {
 		trigger_error("CACHE header is deprecated.  Use the OPTIONS header with the 'cache' parameter instead.",E_USER_DEPRECATED);

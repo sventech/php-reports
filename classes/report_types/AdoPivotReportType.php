@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class AdoPivotReportType extends ReportTypeBase {
+
 	public static function init(&$report) {
 		$environments = PhpReports::$config['environments'];
 		
@@ -10,24 +13,24 @@ class AdoPivotReportType extends ReportTypeBase {
 		//make sure the syntax highlighting is using the proper class
 		SqlFormatter::$pre_attributes = "class='prettyprint linenums lang-sql'";
 
-        $object = spyc_load($report->raw_query);
+		$object = spyc_load($report->raw_query);
 
-        $report->raw_query = array();
+		$report->raw_query = array();
 		//if there are any included reports, add the report sql to the top
 		if(isset($report->options['Includes'])) {
 			$included_sql = '';
 			foreach($report->options['Includes'] as &$included_report) {
 				$included_sql .= trim($included_report->raw_query)."\n";
 			}
-            if (strlen($included_sql) > 0) {
-			    $report->raw_query[] = $included_sql;
-            }
+			if (strlen($included_sql) > 0) {
+				$report->raw_query[] = $included_sql;
+			}
 		}
 
-        $report->raw_query[] = $object;
+		$report->raw_query[] = $object;
 
-		//set a formatted query here for debugging.  It will be overwritten below after macros are substituted.
-        //We can not set the query here - it's not a query just yet...
+		// set a formatted query here for debugging.  It will be overwritten below after macros are substituted.
+		// We can not set the query here - it's not a query just yet...
 		//$report->options['Query_Formatted'] = SqlFormatter::format($report->raw_query);
 	}
 	
@@ -51,31 +54,31 @@ class AdoPivotReportType extends ReportTypeBase {
 	}
 	
 	public static function getVariableOptions($params, &$report) {
-        $report->conn->SetFetchMode(ADODB_FETCH_NUM);
-        $query = 'SELECT DISTINCT '.$params['column'].' FROM '.$params['table'];
+		$report->conn->SetFetchMode(ADODB_FETCH_NUM);
+		$query = 'SELECT DISTINCT '.$params['column'].' FROM '.$params['table'];
 		
 		if(isset($params['where'])) {
 			$query .= ' WHERE '.$params['where'];
 		}
 
-        $macros = $report->macros;
-        foreach($macros as $key=>$value) {
-            if(is_array($value)) {
-                foreach($value as $key2=>$value2) {
-                    $value[$key2] = mysql_real_escape_string(trim($value2));
-                }
-                $macros[$key] = $value;
-            }
-            else {
-                $macros[$key] = mysql_real_escape_string($value);
-            }
+		$macros = $report->macros;
+		foreach($macros as $key=>$value) {
+			if(is_array($value)) {
+				foreach($value as $key2=>$value2) {
+					$value[$key2] = mysql_real_escape_string(trim($value2));
+				}
+				$macros[$key] = $value;
+			}
+			else {
+				$macros[$key] = mysql_real_escape_string($value);
+			}
 
-            if($value === 'ALL') $macros[$key.'_all'] = true;
-        }
+			if($value === 'ALL') $macros[$key.'_all'] = true;
+		}
 
-        //add the config and environment settings as macros
-        $macros['config'] = PhpReports::$config;
-        $macros['environment'] = PhpReports::$config['environments'][$report->options['Environment']];
+		//add the config and environment settings as macros
+		$macros['config'] = PhpReports::$config;
+		$macros['environment'] = PhpReports::$config['environments'][$report->options['Environment']];
 
 		$result = $report->conn->Execute(PhpReports::renderString($query, $macros));
 		

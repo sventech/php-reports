@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class TypeHeader extends InfoHeader {
+
 	public static function init($params, &$report) {
 		trigger_error("TYPE header is deprecated.  Use the INFO header with the 'type' parameter instead.",E_USER_DEPRECATED);
 		

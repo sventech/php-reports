@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 class PhpReports {
 	public static $config;
 	public static $request;

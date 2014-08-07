@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class drilldownFilter extends linkFilter {	
+
 	public static function filter($value, $options = array(), &$report, &$row) {
 		if(!isset($options['macros'])) $options['macros'] = array();
 		

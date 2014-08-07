@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class MongoReportType extends ReportTypeBase {
+
 	public static function init(&$report) {
 		$environments = PhpReports::$config['environments'];
 		

@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 abstract class XlsReportBase extends ReportFormatBase {
+
 	private static function columnLetter($c){
 		$c = intval($c);
 		if ($c <= 0) return '';

@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class FilterHeader extends HeaderBase {
+
 	static $validation = array(
 		'column'=>array(
 			'required'=>true,

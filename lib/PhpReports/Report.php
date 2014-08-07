@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 class Report {
 	public $report;
 	public $macros = array();

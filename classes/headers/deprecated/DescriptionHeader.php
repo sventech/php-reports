@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 class DescriptionHeader extends InfoHeader {
 	public static function init($params, &$report) {
 		trigger_error("DESCRIPTION header is deprecated.  Use the INFO header with the 'description' parameter instead.",E_USER_DEPRECATED);

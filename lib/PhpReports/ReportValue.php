@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 class ReportValue {
 	public $key;
 	public $i;

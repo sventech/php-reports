@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 abstract class ReportTypeBase {
 	public static function init(&$report) {
 		

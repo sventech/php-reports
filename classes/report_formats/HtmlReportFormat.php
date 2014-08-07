@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class HtmlReportFormat extends ReportFormatBase {
+
 	public static function display(&$report, &$request) {
 		
 		//determine if this is an asyncronous report or not		

@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 class VariableHeader extends HeaderBase {
 	
 	static $validation = array(

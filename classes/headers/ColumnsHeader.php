@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class ColumnsHeader extends HeaderBase {
+
 	public static function init($params, &$report) {
 		foreach($params['columns'] as $column=>$options) {
 			if(!isset($options['type'])) throw new Exception("Must specify column type for column $column");

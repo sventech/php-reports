@@ -17,6 +17,7 @@
 	returns the differences in HTML. The tags used are <ins> and <del>,
 	which can easily be styled with CSS.  
 */
+namespace PaulButler;
 
 class SimpleDiff {
 	function diff($old, $new){

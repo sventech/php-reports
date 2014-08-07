@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class CsvReportFormat extends ReportFormatBase {
+
 	public static function display(&$report, &$request) {
 		//always use cache for CSV reports
 		$report->use_cache = true;

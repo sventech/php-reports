@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 class ChartHeader extends HeaderBase {
 	static $validation = array(
 		'columns'=>array(

@@ -1,4 +1,6 @@
 <?php
+namespace JDorn;
+
 abstract class FilterBase {	
 	/**
 	 * Filter a datapoint in the report

@@ -1,5 +1,8 @@
 <?php
+namespace JDorn;
+
 class TotalsHeader extends HeaderBase {
+
 	static $validation = array(
 		'value'=>array(
 			'required'=>true,
