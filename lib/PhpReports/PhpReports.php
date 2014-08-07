@@ -13,7 +13,7 @@ class PhpReports {
 	
 	public static function init($config = 'config/config.php') {
 		//set up our autoloader
-		spl_autoload_register(array('PhpReports','loader'),true,true);
+		//spl_autoload_register(array('PhpReports','loader'),true,true);
 
 		if(!file_exists($config)) {
 			throw new Exception("Cannot find config file");

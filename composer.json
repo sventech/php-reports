@@ -17,7 +17,7 @@
         "mikecao/flight": "dev-master",
         "jdorn/sql-formatter": "dev-master",
         "jdorn/file-system-cache": "dev-master",
-        "phpoffice/phpexcel": "dev-develop",
+        "phpoffice/phpexcel": "dev-master",
         "adodb/adodb-php": "dev-master",
         "lespoilus/spyc": "dev-master"
     },
