@@ -11,6 +11,7 @@
         }
     ],
     "require": {
+        "php": ">=5.3.0",
         "twig/twig": "1.*",
         "swiftmailer/swiftmailer": "5.*",
         "mikecao/flight": "dev-master",
@@ -19,6 +20,12 @@
         "phpoffice/phpexcel": "dev-develop",
         "adodb/adodb-php": "dev-master",
         "lespoilus/spyc": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "lib/",
+            "": "classes/"
+        }
     },
     "minimum-stability": "dev"
 }
