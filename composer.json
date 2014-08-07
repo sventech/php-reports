@@ -34,12 +34,5 @@
         "adodb/adodb-php": "dev-master",
         "lespoilus/spyc": "dev-master"
     },
-    "autoload": {
-        "files": [
-            "vendor/mikecao/flight/flight/Flight.php",
-            "lib/adodb/pivottable.inc.php",
-            "vendor/jdorn/file-system-cache/lib/FileSystemCache.php"
-        ]
-    },
     "minimum-stability": "dev"
 }
