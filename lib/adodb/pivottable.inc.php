@@ -28,7 +28,7 @@ namespace JohnLim;
 
 function PivotTableSQL(&$db, $tables, $rowfields, $colfield, $where = false, $orderBy = false, $limit = false,
                         $aggfield = false, $sumlabel = "Sum {}", $aggfn = "SUM", $includeaggfield = true, $showcount = true) {
-	if ($aggfield) {
+    if ($aggfield) {
         $hidecnt = true;
     } else {
         $hidecnt = false;

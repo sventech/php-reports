@@ -22,11 +22,10 @@
         "lespoilus/spyc": "dev-master"
     },
     "autoload": {
-        "psr-0": {
-            "PaulButler": "lib/",
-            "JohnLim": "lib/",
-            "JDorn": "lib/",
-            "JDorn": "classes/"
+        "psr-4": {
+            "PaulButler\\": "lib/PaulButler/",
+            "JohnLim\\": "lib/adodb/",
+            "JDorn\\PhpReports\\": "src/PhpReports/"
         }
     },
     "minimum-stability": "dev"
