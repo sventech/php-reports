@@ -7,8 +7,6 @@ ini_set('max_execution_time', 300);
 // sets up autoloading of composer dependencies
 require 'vendor/autoload.php';
 
-use \Flight;
-
 // sets up autoload (looks in classes/local/, classes/, and lib/ in that order)
 #require 'src/PhpReports/PhpReports.php';
 JDorn\PhpReports\PhpReports::init('config/config.php.sample');

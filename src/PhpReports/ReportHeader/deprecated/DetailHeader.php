@@ -1,5 +1,5 @@
 <?php
-namespace JDorn;
+namespace JDorn\PhpReports\ReportHeader;
 
 class DetailHeader extends HeaderBase {
 

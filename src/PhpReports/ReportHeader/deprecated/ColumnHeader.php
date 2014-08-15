@@ -1,5 +1,5 @@
 <?php
-namespace JDorn;
+namespace JDorn\PhpReports\ReportHeader;
 
 class ColumnHeader extends ColumnsHeader {
 

@@ -1,5 +1,5 @@
 <?php
-namespace JDorn;
+namespace JDorn\PhpReports\ReportHeader;
 
 class CacheHeader extends OptionsHeader {	
 	public static function init($params, &$report) {

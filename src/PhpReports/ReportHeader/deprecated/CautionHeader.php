@@ -1,5 +1,5 @@
 <?php
-namespace JDorn;
+namespace JDorn\PhpReports\ReportHeader;
 
 class CautionHeader extends HeaderBase {
 	static $validation = array(

@@ -1,5 +1,5 @@
 <?php
-namespace JDorn;
+namespace JDorn\PhpReports\ReportHeader;
 
 class DescriptionHeader extends InfoHeader {
 	public static function init($params, &$report) {
