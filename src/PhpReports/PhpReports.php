@@ -11,7 +11,7 @@ class PhpReports {
 	
 	private static $loader_cache;
 	
-	public static function init($config = 'config/config.php') {
+	public static function init($config = 'config/config.php', $uri = 'vendor/jdorn/php-reports') {
 		// set up our autoloader
 		//spl_autoload_register(array('PhpReports','loader'),true,true);
 
@@ -19,14 +19,18 @@ class PhpReports {
 			throw new \Exception("Cannot find config file");
 		}
 		
-		$default_config = include('config/config.php.sample');
+		#$default_config = include('config/config.php.sample');
+                $default_config = array();
 		$config = include($config);
 	
 		self::$config = array_merge($default_config, $config);
 		
-		self::$request = Flight::request();
+		#self::$request = Flight::request();
+		self::$request = new \stdClass();
+		self::$request->base = $uri;
 
-		$path = self::$request->base;
+		#$path = self::$request->base;
+                $path = $uri;
 		
 		if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
 			$protocol = 'https://';
@@ -38,27 +42,36 @@ class PhpReports {
 		// the load order for templates is: "templates/local", "templates/default", "templates"
 		// this means loading the template "html/report.twig" will load the local first and then the default
 		// if you want to extend a default template from within a local template, you can do {% extends "default/html/report.twig" %} and it will fall back to the last loader
-		$template_dirs = array('templates/default','templates');
+		$template_dirs = array($path.'/templates/default', $path.'/templates');
 		if(file_exists('templates/local')) array_unshift($template_dirs, 'templates/local');
 		
-		$loader = new Twig_Loader_Chain(array(
-			new Twig_Loader_Filesystem($template_dirs), 
-			new Twig_Loader_String()
+		$loader = new \Twig_Loader_Chain(array(
+			new \Twig_Loader_Filesystem($template_dirs), 
+			new \Twig_Loader_String()
 		));
-		self::$twig = new Twig_Environment($loader);
-		self::$twig->addFunction(new Twig_SimpleFunction('dbdate', 'PhpReports::dbdate'));
-		self::$twig->addFunction(new Twig_SimpleFunction('sqlin', 'PhpReports::generateSqlIN'));
+		self::$twig = new \Twig_Environment($loader);
+		self::$twig->addFunction(new \Twig_SimpleFunction('dbdate', 'JDorn\Phpreports\PhpReports::dbdate'));
+		self::$twig->addFunction(new \Twig_SimpleFunction('sqlin', 'JDorn\Phpreports\PhpReports::generateSqlIN'));
+
+
+                $report_theme = self::$config['bootstrap_theme'];
+                if(array_key_exists('reports-theme', $_COOKIE)) {
+			if($_COOKIE['reports-theme'] != '') {
+				$reports_theme = $_COOKIE['reports-theme'];
+			}
+                }
 		
-		self::$twig->addGlobal('theme', $_COOKIE['reports-theme'] != '' ? $_COOKIE['reports-theme'] : self::$config['bootstrap_theme']);
+		self::$twig->addGlobal('theme', $report_theme);
 		self::$twig->addGlobal('path', $path);
 		
-			self::$twig_string = new Twig_Environment(new Twig_Loader_String(), array('autoescape'=>false));
-		self::$twig_string->addFunction(new Twig_SimpleFunction('sqlin', 'PhpReports::generateSqlIN'));
+			self::$twig_string = new \Twig_Environment(new \Twig_Loader_String(), array('autoescape'=>false));
+		self::$twig_string->addFunction(new \Twig_SimpleFunction('sqlin', 'JDorn\Phpreports\PhpReports::generateSqlIN'));
 		
-		FileSystemCache::$cacheDir = self::$config['cacheDir'];
+		\FileSystemCache::$cacheDir = self::$config['cacheDir'];
 
 		if(!isset($_SESSION['environment']) || !isset(self::$config['environments'][$_SESSION['environment']])) {
-			$_SESSION['environment'] = array_shift(array_keys(self::$config['environments']));
+			$env_list = array_keys(self::$config['environments']);
+			$_SESSION['environment'] = array_shift($env_list);
 		}
 	}
 	
@@ -278,7 +291,7 @@ class PhpReports {
 	}
 	
 	public static function getRecentReports() {
-		$recently_run = FileSystemCache::retrieve(FileSystemCache::generateCacheKey('recently_run'));
+		$recently_run = \FileSystemCache::retrieve(\FileSystemCache::generateCacheKey('recently_run'));
 		$recent = array();
 		if($recently_run !== false) {
 			$i = 0;
@@ -304,7 +317,7 @@ class PhpReports {
 		}
 
 		// weight by popular reports
-		$recently_run = FileSystemCache::retrieve(FileSystemCache::generateCacheKey('recently_run'));
+		$recently_run = \FileSystemCache::retrieve(\FileSystemCache::generateCacheKey('recently_run'));
 		$popular = array();
 		if($recently_run !== false) {
 			foreach($recently_run as $report) {
@@ -346,13 +359,13 @@ class PhpReports {
 	}
 
 	protected static function getReportHeaders($report) {
-		$cacheKey = FileSystemCache::generateCacheKey($report,'report_headers');
+		$cacheKey = \FileSystemCache::generateCacheKey($report,'report_headers');
 
 		// check if report data is cached and newer than when the report file was created
 		// the url parameter ?nocache will bypass this and not use cache
 		$data =false;
 		if(!isset($_REQUEST['nocache'])) {
-			$data = FileSystemCache::retrieve($cacheKey, filemtime(Report::getFileLocation($report)));
+			$data = \FileSystemCache::retrieve($cacheKey, filemtime(Report::getFileLocation($report)));
 		}
 
 		// report data not cached, need to parse it
@@ -368,7 +381,7 @@ class PhpReports {
 			if(!isset($data['Name'])) $data['Name'] = ucwords(str_replace(array('_','-'),' ',basename($report)));
 
 			// store parsed report in cache
-			FileSystemCache::store($cacheKey, $data);
+			\FileSystemCache::store($cacheKey, $data);
 		}
 
 		return $data;
